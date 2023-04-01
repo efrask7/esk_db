@@ -1,0 +1,12 @@
+{
+  "name": "skdb",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "tsc": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.3"
+  }
+}
