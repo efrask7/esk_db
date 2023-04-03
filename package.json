@@ -6,10 +6,15 @@
   "scripts": {
     "tsc": "tsc",
     "start-ts": "ts-node src/index.ts",
-    "start": "build/index.js"
+    "start": "build/index.js",
+    "test": "ts-node src/utils/addNewValueToTable.ts"
   },
   "devDependencies": {
+    "@types/node": "^18.15.11",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.3"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security"
   }
 }
