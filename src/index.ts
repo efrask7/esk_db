@@ -1,52 +1,27 @@
-import { database, dbType, permission } from "./types";
-import createNewDB from "./utils/createNewDB";
+import Database from "./models/database";
+import { dbType } from "./types";
 
-const info: database = {
-  name: 'School',
-  tables: [
-    {
-      name: 'students',
-      values: [
-        {
-          name: 'name',
-          required: true,
-          type: dbType.String,
-          limit: 50
-        },
-        {
-          name: 'card',
-          required: true,
-          primaryKey: true,
-          type: dbType.Number,
-          limit: 8
-        }
-      ]
-    },
-    {
-      name: 'teachers',
-      values: [
-        {
-          name: 'name',
-          required: true,
-          type: dbType.String,
-          limit: 50
-        },
-        {
-          name: 'card',
-          required: true,
-          primaryKey: true,
-          type: dbType.Number,
-          limit: 8
-        }
-      ]
-    }
-  ],
-  privileges: [
-    {
-      name: 'root',
-      permissions: permission.All
-    }
-  ]
-}
+const SchoolDB = new Database('School')
 
-console.log(createNewDB(info))
+let db = SchoolDB.save()
+console.log(db)
+
+let students = SchoolDB.addTable('students', [{
+  name: 'fullname',
+  required: true,
+  type: dbType.String
+},
+{
+  name: 'card',
+  required: true,
+  type: dbType.Number,
+  limit: 8,
+  primaryKey: true
+}])
+
+console.log(students.save())
+
+console.log(students.addValue({
+  fullname: 'juan',
+  card: 55599234
+}))

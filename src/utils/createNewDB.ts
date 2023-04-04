@@ -1,21 +1,19 @@
-import { database, dbType, permission, table, user } from "../types";
+import { database, permission, user } from "../types";
 import fs from 'fs'
 import config from "../config.json"
+import { readDatabasesWithoutConfig } from "./readDBs";
 
 const { databasePath } = config
 
 const createNewDB = (databaseInfo: database) => {
-  const { name, tables, privileges } = databaseInfo
+  const { name, privileges } = databaseInfo
   const route = `${databasePath}/${name}/`
+
+  const dbs = readDatabasesWithoutConfig()
+  if (dbs.includes(name)) return
 
   if (!isString(name)) {
     throw new Error('The provided name is not valid')
-  }
-
-  for (let i in tables) {
-    if (!isValidTable(tables[i])) {
-      throw new Error('The provided table is not valid. ' + tables[i])
-    }
   }
 
   for (let i in privileges) {
@@ -24,39 +22,33 @@ const createNewDB = (databaseInfo: database) => {
     }
   }
   
-  let createDir = fs.mkdirSync(route, {recursive: true})
-  let createInfo = fs.writeFileSync(route + '/config.json', JSON.stringify(databaseInfo))
+  fs.mkdirSync(route, {recursive: true})
+  fs.writeFileSync(route + '/config.json', JSON.stringify(databaseInfo))
 
-  for (let i in tables) {
-    const INITIAL_STATE: Array<Object> = []
-    fs.mkdirSync(route + tables[i].name)
-    fs.writeFileSync(route + tables[i].name + '/' + 'data.json', JSON.stringify(INITIAL_STATE))
-  }
-
-  return `New DB: ${createDir} | ${createInfo}`
+  return `DB: ${name} created`
 }
 
 const isString = (name: string): boolean => {
   return typeof name === 'string'
 }
 
-const isValidTable = (table: table): boolean => {
-  if (!table.name || !isString(table.name)) {
-    return false
-  }
+// const isValidTable = (table: table): boolean => {
+//   if (!table.name || !isString(table.name)) {
+//     return false
+//   }
   
-  for (let i in table.values) {
-    if (!table.values[i].required ||typeof table.values[i].required !== 'boolean') {
-      return false
-    }
+//   for (let i in table.values) {
+//     if (!table.values[i].required ||typeof table.values[i].required !== 'boolean') {
+//       return false
+//     }
 
-    if (!Object.values(dbType).includes(table.values[i].type)) {
-      return false
-    }
-  }
+//     if (!Object.values(dbType).includes(table.values[i].type)) {
+//       return false
+//     }
+//   }
 
-  return true
-}
+//   return true
+// }
 
 const isValidUser = (user: user): boolean => {
   if (!user.name || !isString(user.name)) {
@@ -77,5 +69,11 @@ const isValidPermission = (permissionParam: permission): boolean => {
 
   return true
 }
+
+//! for (let i in tables) {
+//!   const INITIAL_STATE: Array<Object> = []
+//!   fs.mkdirSync(route + tables[i].name)
+//!   fs.writeFileSync(route + tables[i].name + '/' + 'data.json', JSON.stringify(INITIAL_STATE))
+//! }
 
 export default createNewDB

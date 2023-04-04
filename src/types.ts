@@ -1,6 +1,5 @@
 export interface database {
   name: string
-  tables: Array<table>
   privileges: Array<user>
 }
 
@@ -16,6 +15,17 @@ export interface value {
   type: dbType
   limit?: number
   defaultValue?: dbType
+}
+
+type JSONValue = 
+  | string
+  | number
+  | object
+  | boolean
+  
+
+export interface JSONObject {
+  [x: string]: JSONValue
 }
 
 export type valueInTable = {

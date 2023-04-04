@@ -1,12 +1,13 @@
 import fs from 'fs'
 import config from '../config.json'
+import { JSONObject } from '../types'
 
 const { databasePath } = config 
 
-const addNewValueToTable = (databaseName: string, tableName: string, info: any) => {
+const addNewValueToTable = (databaseName: string, tableName: string, info: JSONObject, primary?: string) => {
   const dbs = fs.readdirSync(databasePath)
   if (!dbs.includes(databaseName)) {
-    throw new Error('The database: ' + name + ' does not exist')
+    throw new Error('The database: ' + databaseName + ' does not exist')
   }  
 
   const path = databasePath + databaseName + '/'
@@ -15,7 +16,13 @@ const addNewValueToTable = (databaseName: string, tableName: string, info: any) 
   //const config: database = JSON.parse(dbConfig)
   //let indexOfTable = config.tables.findIndex(value => value.name === tableName)
 
-  let values: [] = JSON.parse(fs.readFileSync(path + tableName + '/data.json', {encoding: 'utf8'}))
+  let values: Array<JSONObject> = JSON.parse(fs.readFileSync(path + tableName + '/data.json', {encoding: 'utf8'}))
+
+  if (primary) {
+    if (values.find(v => v[primary] === info[primary])) {
+      throw new Error('Primary key repeated')
+    }
+  }
 
   info["id"] = values.length + 1
 
@@ -29,8 +36,7 @@ const addNewValueToTable = (databaseName: string, tableName: string, info: any) 
   return 'Value saved'
 
 }
-
-addNewValueToTable('School', 'students', {"name": "Juansito", "card": 55599683})
+//addNewValueToTable('School', 'students', {"name": "Juansito", "card": 55599683})
 
 // const isValidType = (value: any, type: dbType): boolean => {
 //   if (type === dbType.Boolean && typeof value !== 'boolean') {
@@ -55,3 +61,5 @@ addNewValueToTable('School', 'students', {"name": "Juansito", "card": 55599683})
 
 //   return true
 // }
+
+export default addNewValueToTable

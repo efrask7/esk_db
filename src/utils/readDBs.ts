@@ -29,3 +29,10 @@ export const readDatabase = (name: string): database => {
 
   return JSON.parse(db)
 }
+
+export const readDatabasesWithoutConfig = (): string[] => {
+  const dbs = fs.readdirSync(databasePath)
+  const [ _ignore, ...listOfDbs ] = dbs
+
+  return listOfDbs
+}
