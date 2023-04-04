@@ -12,9 +12,14 @@ export interface value {
   name: string
   required: boolean
   primaryKey?: boolean
-  type: dbType
+  type: string
   limit?: number
   defaultValue?: dbType
+}
+
+export type valueToSearch = {
+  search: string
+  value: dbType
 }
 
 type JSONValue = 
@@ -35,12 +40,13 @@ export type valueInTable = {
 
 export type valueWithoutInfo = Pick<value, 'name' | 'type'>
 
-export enum dbType {
-  String = 'String',
-  Number = 'Number',
-  JSON = 'JSON',
-  Array = 'Array',
-  Boolean = 'Boolean'
+export type dbType = string | boolean | number | object
+
+export enum dbTypeValue {
+  String = 'string',
+  Boolean = 'boolean',
+  Number = 'number',
+  Object = 'object'
 }
 
 export enum permission {

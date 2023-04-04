@@ -1,4 +1,4 @@
-import { dbType, table } from "../types"
+import { dbTypeValue, table } from "../types"
 import config from "../config.json"
 import fs from "fs"
 import readTables from "./readTables"
@@ -49,7 +49,7 @@ const isValidTable = (tableParam: table): boolean => {
       return false
     }
 
-    if (!Object.values(dbType).includes(tableParam.values[i].type)) {
+    if (!Object.values(dbTypeValue).includes(tableParam.values[i].type as dbTypeValue)) {
       return false
     }
   }

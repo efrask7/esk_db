@@ -1,5 +1,4 @@
 import Database from "./models/database";
-import { dbType } from "./types";
 
 const SchoolDB = new Database('School')
 
@@ -10,12 +9,12 @@ let students = SchoolDB.addTable('students', [
 {
   name: 'fullname',
   required: true,
-  type: dbType.String
+  type: 'string'
 },
 {
   name: 'card',
   required: true,
-  type: dbType.Number,
+  type: 'number',
   limit: 8,
   primaryKey: true
 }])
@@ -31,26 +30,38 @@ const teachers = SchoolDB.addTable('teachers', [
   {
     name: 'fullname',
     required: true,
-    type: dbType.String
+    type: 'string'
   },
   {
     name: 'card',
     required: true,
-    type: dbType.Number,
+    type: 'number',
     limit: 8,
     primaryKey: true
   }, 
   {
     name: 'hasClassroom',
     required: true,
-    type: dbType.Boolean
+    type: 'boolean'
   }
 ])
 
 console.log(teachers.save())
 
-console.log(teachers.addValue({
-  fullname: 'elsenior',
-  card: 55599300,
-  hasClassroom: true
+// console.log(teachers.addValue({
+//   fullname: 'elsenior',
+//   card: 55599300,
+//   hasClassroom: true
+// }))
+
+console.log(teachers.findOne({
+  search: 'card',
+  value: 55599300
 }))
+
+console.log(students.findOne({
+  search: 'card',
+  value: 55599300
+}))
+
+console.log(teachers.find())

@@ -1,11 +1,13 @@
-import { JSONObject, value } from "../types";
+import { JSONObject, value, valueToSearch } from "../types";
 import addNewValueToTable from "../utils/addNewValueToTable";
 import createTable from "../utils/createTable";
+import getValueFromValue from "../utils/getValueFromValue";
+import getValues from "../utils/getValues";
 
 class Table {
   tableName: string
   values: Array<value>
-  dbName: string
+  dbName: string 
 
   constructor (dbName: string, tableName: string, values: Array<value>) {
     this.tableName = tableName
@@ -35,6 +37,14 @@ class Table {
     }
     
     return addNewValueToTable(this.dbName, this.tableName, value, primary)
+  }
+
+  findOne(value: valueToSearch) {
+    return getValueFromValue(this.dbName, this.tableName, value)
+  }
+
+  find() {
+    return getValues(this.dbName, this.tableName)
   }
 }
 
