@@ -12,8 +12,19 @@ const createTable = (dbName: string, info: table) => {
   if (tables.includes(info.name)) return
 
   const path = databasePath + dbName + '/'
-  fs.writeFileSync(path + 'tables.json', JSON.stringify(info))
-  
+  const files = fs.readdirSync(path)
+  if (files.includes('tables.json')) {
+    const tables: Array<table> = JSON.parse(fs.readFileSync(path + 'tables.json', {encoding: 'utf-8'}))
+    console.log(tables)
+    let newTables = [
+      ...tables,
+      info
+    ]
+    fs.writeFileSync(path + 'tables.json', JSON.stringify(newTables))
+  } else {
+    fs.writeFileSync(path + 'tables.json', JSON.stringify([info]))
+  }
+
   const INITIAL_STATE: table[] = []
   fs.mkdirSync(path + info.name)
   fs.writeFileSync(path + info.name + '/data.json', JSON.stringify(INITIAL_STATE))

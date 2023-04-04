@@ -6,7 +6,8 @@ const SchoolDB = new Database('School')
 let db = SchoolDB.save()
 console.log(db)
 
-let students = SchoolDB.addTable('students', [{
+let students = SchoolDB.addTable('students', [
+{
   name: 'fullname',
   required: true,
   type: dbType.String
@@ -21,7 +22,35 @@ let students = SchoolDB.addTable('students', [{
 
 console.log(students.save())
 
-console.log(students.addValue({
-  fullname: 'juan',
-  card: 55599234
+// console.log(students.addValue({
+//   fullname: 'pepito',
+//   card: 34399232
+// }))
+
+const teachers = SchoolDB.addTable('teachers', [
+  {
+    name: 'fullname',
+    required: true,
+    type: dbType.String
+  },
+  {
+    name: 'card',
+    required: true,
+    type: dbType.Number,
+    limit: 8,
+    primaryKey: true
+  }, 
+  {
+    name: 'hasClassroom',
+    required: true,
+    type: dbType.Boolean
+  }
+])
+
+console.log(teachers.save())
+
+console.log(teachers.addValue({
+  fullname: 'elsenior',
+  card: 55599300,
+  hasClassroom: true
 }))
