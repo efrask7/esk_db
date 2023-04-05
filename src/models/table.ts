@@ -27,8 +27,15 @@ class Table {
     let primary
 
     for (let i in this.values) {
-      if (!value[this.values[i].name]) {
+
+      if (!value[this.values[i].name] && this.values[i].type !== 'boolean') {
         throw new Error(`You dont provide: ${this.values[i].name}`)
+      }
+
+      if (this.values[i].type === 'boolean') {
+        if (!Object.keys(value).includes(this.values[i].name)) {
+          throw new Error(`You dont provide: ${this.values[i].name}`)
+        }
       }
 
       if (this.values[i].primaryKey) {
