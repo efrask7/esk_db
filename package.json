@@ -1,5 +1,12 @@
 {
   "name": "skdb",
+  "description": "A pkg to do databases that saves in local",
+  "author": {
+    "name": "efra_sk"
+  },
+  "repository": {
+    "url": "https://www.github.com/efrask7/skdb.git"
+  },
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
