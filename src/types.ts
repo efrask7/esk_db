@@ -8,7 +8,7 @@ export type table = {
   values: Array<value>
 }
 
-export interface value {
+export type value = {
   name: string
   required: boolean
   primaryKey?: boolean
@@ -22,7 +22,7 @@ export type valueToSearch = {
   value: dbType
 }
 
-type JSONValue = 
+export type JSONValue = 
   | string
   | number
   | object
