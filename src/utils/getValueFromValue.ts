@@ -1,22 +1,18 @@
 import { JSONObject, valueToSearch } from "../types"
 import config from '../config.json'
-import { readDatabasesWithoutConfig } from "./readDBs"
-import readTables from "./readTables"
 import fs from 'fs'
+import dbExist from "./dbExists"
+import tableExist from "./tableExists"
 
 const { databasePath } = config
 
-const getValueFromValue = (dbName: string, tableName: string, value: valueToSearch) => {
+const getValueFromValue = (dbName: string, tableName: string, value: valueToSearch): JSONObject => {
   
-  const dbs = readDatabasesWithoutConfig()
-
-  if (!dbs.includes(dbName)) {
+  if (!dbExist(dbName)) {
     throw new Error(`The database ${dbName} does not exist`)
   }
 
-  const tables = readTables(dbName)
-
-  if (!tables.includes(tableName)) {
+  if (!tableExist(dbName, tableName)) {
     throw new Error(`The database ${dbName} don't have a table called ${tableName}`)
   }
 
@@ -24,7 +20,7 @@ const getValueFromValue = (dbName: string, tableName: string, value: valueToSear
 
   const values: Array<JSONObject> = JSON.parse(fs.readFileSync(path + tableName + '/data.json', {encoding: 'utf-8'}))
 
-  const valueSearch = values.find(v => v[value.search] === value.value)
+  const valueSearch: JSONObject | undefined = values.find(v => v[value.search] === value.value)
 
   if (!valueSearch) {
     return {}

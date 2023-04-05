@@ -1,25 +1,23 @@
 import config from '../config.json'
 import { JSONObject } from '../types'
-import { readDatabasesWithoutConfig } from './readDBs'
-import readTables from './readTables'
+import dbExist from './dbExists'
 import fs from 'fs'
+import tableExists from './tableExists'
 
 const { databasePath } = config
 
 const getValues = (dbName: string, tableName: string): Array<JSONObject> => {
   const path = databasePath + dbName + '/'
 
-  const dbs = readDatabasesWithoutConfig()
-  if (!dbs.includes(dbName)) {
-    throw new Error('The provided database does not exists')
+  if (!dbExist(dbName)) {
+    throw new Error(`The database ${dbName} does not exist`)
   }
 
-  const tables = readTables(dbName)
-  if (!tables.includes(tableName)) {
-    throw new Error('The provided table does not exists')
+  if (!tableExists(dbName, tableName)) {
+    throw new Error(`The database ${dbName} don't have a table called ${tableName}`)
   }
 
-  const values: [] = JSON.parse(fs.readFileSync(path + tableName + '/data.json', {encoding: 'utf-8'}))
+  const values: Array<JSONObject> = JSON.parse(fs.readFileSync(path + tableName + '/data.json', {encoding: 'utf-8'}))
 
   return values
 }

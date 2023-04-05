@@ -18,15 +18,15 @@ const getValuesFromValue = (dbName: string, tableName: string, value: valueParam
   }
 
   if (!dbExist(dbName)) {
-    throw new Error('The provided database does not exists')
+    throw new Error(`The database ${dbName} does not exists`)
   }
 
   if (!tableExists(dbName, tableName)) {
-    throw new Error('The provided table does not exists')
+    throw new Error(`The database ${dbName} don't have a table called ${tableName}`)
   }
 
   if (!valueExists(dbName, tableName, value.name)) {
-    throw new Error('The provided value name does not exists')
+    throw new Error(`The table ${tableName} don't have a value called ${value.name}`)
   }
 
   let returnValues: Array<JSONObject> = []
