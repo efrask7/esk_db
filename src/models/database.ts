@@ -1,6 +1,6 @@
 import { permission, value } from "../types";
 import { user } from "../types";
-import createNewDB from "../utils/createNewDB";
+import createNewDB from "../utils/create/createNewDB";
 import Table from "./table";
 
 class Database {

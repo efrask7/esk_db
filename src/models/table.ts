@@ -1,8 +1,9 @@
-import { JSONObject, value, valueToSearch } from "../types";
-import addNewValueToTable from "../utils/addNewValueToTable";
-import createTable from "../utils/createTable";
-import getValueFromValue from "../utils/getValueFromValue";
-import getValues from "../utils/getValues";
+import { JSONObject, dbType, value, valueToSearch } from "../types";
+import addNewValueToTable from "../utils/create/addNewValueToTable";
+import createTable from "../utils/create/createTable";
+import { deleteValueFromPrimaryKey } from "../utils/delete/deleteValueFromTable";
+import getValueFromValue from "../utils/read/getValueFromValue";
+import getValues from "../utils/read/getValues";
 
 class Table {
   tableName: string
@@ -52,6 +53,10 @@ class Table {
 
   find() {
     return getValues(this.dbName, this.tableName)
+  }
+
+  deleteByKey(value: {key: string, valueToRemove: dbType}) {
+    return deleteValueFromPrimaryKey(this.dbName, this.tableName, value)
   }
 }
 

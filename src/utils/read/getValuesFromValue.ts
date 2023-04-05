@@ -1,8 +1,8 @@
-import { JSONObject, dbType } from "../types"
+import { JSONObject, dbType } from "../../types"
 import dbExist from "./dbExists"
 import tableExists from "./tableExists"
 import valueExists from "./valueExists"
-import config from "../config.json"
+import config from "../../config.json"
 import fs from "fs"
 
 const { databasePath } = config

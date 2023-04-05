@@ -1,7 +1,7 @@
-import { dbTypeValue, table } from "../types"
-import config from "../config.json"
+import { dbTypeValue, table } from "../../types"
+import config from "../../config.json"
 import fs from "fs"
-import readTables from "./readTables"
+import readTables from "../read/readTables"
 
 const { databasePath } = config
 

@@ -1,6 +1,6 @@
 import fs from 'fs'
-import config from '../config.json'
-import { JSONObject } from '../types'
+import config from '../../config.json'
+import { JSONObject } from '../../types'
 
 const { databasePath } = config 
 

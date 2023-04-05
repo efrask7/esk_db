@@ -1,7 +1,7 @@
-import { database, permission, user } from "../types";
+import { database, permission, user } from "../../types";
 import fs from 'fs'
-import config from "../config.json"
-import { readDatabasesWithoutConfig } from "./readDBs";
+import config from "../../config.json"
+import { readDatabasesWithoutConfig } from "../read/readDBs";
 
 const { databasePath } = config
 

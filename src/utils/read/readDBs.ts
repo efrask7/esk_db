@@ -1,6 +1,6 @@
-import { database } from "../types";
+import { database } from "../../types";
 import fs from "fs"
-import config from "../config.json"
+import config from "../../config.json"
 
 const { databasePath } = config
 

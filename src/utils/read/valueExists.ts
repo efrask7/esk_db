@@ -1,8 +1,8 @@
 import dbExist from "./dbExists"
 import tableExists from "./tableExists"
 import fs from "fs"
-import config from "../config.json"
-import { table } from "../types"
+import config from "../../config.json"
+import { table } from "../../types"
 
 const { databasePath } = config
 

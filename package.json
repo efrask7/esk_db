@@ -14,7 +14,7 @@
     "tsc": "tsc",
     "start-ts": "ts-node src/index.ts",
     "start": "build/index.js",
-    "test": "ts-node src/utils/addNewValueToTable.ts"
+    "test": "ts-node src/utils/getValuesFromValue.ts"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",

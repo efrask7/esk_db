@@ -1,5 +1,5 @@
-import { JSONObject, valueToSearch } from "../types"
-import config from '../config.json'
+import { JSONObject, valueToSearch } from "../../types"
+import config from '../../config.json'
 import fs from 'fs'
 import dbExist from "./dbExists"
 import tableExist from "./tableExists"

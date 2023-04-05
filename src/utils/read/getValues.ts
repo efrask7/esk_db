@@ -1,5 +1,5 @@
-import config from '../config.json'
-import { JSONObject } from '../types'
+import config from '../../config.json'
+import { JSONObject } from '../../types'
 import dbExist from './dbExists'
 import fs from 'fs'
 import tableExists from './tableExists'

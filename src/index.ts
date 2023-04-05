@@ -48,20 +48,16 @@ const teachers = SchoolDB.addTable('teachers', [
 
 console.log(teachers.save())
 
-// console.log(teachers.addValue({
-//   fullname: 'elsenior',
-//   card: 55599300,
-//   hasClassroom: true
+console.log(teachers.deleteByKey({key: 'card', valueToRemove: 55599300}))
+
+// console.log(teachers.findOne({
+//   search: 'card',
+//   value: 55599300
 // }))
 
-console.log(teachers.findOne({
-  search: 'card',
-  value: 55599300
-}))
+// console.log(students.findOne({
+//   search: 'card',
+//   value: 55599300
+// }))
 
-console.log(students.findOne({
-  search: 'card',
-  value: 55599300
-}))
-
-console.log(teachers.find())
+// console.log(teachers.find())
