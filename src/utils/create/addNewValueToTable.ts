@@ -7,7 +7,7 @@ const { databasePath } = config
 const addNewValueToTable = (databaseName: string, tableName: string, info: JSONObject, primary?: string): valueAdded => {
   const dbs = fs.readdirSync(databasePath)
   if (!dbs.includes(databaseName)) {
-    throw new Error('The database: ' + databaseName + ' does not exists')
+    throw new Error(`The database ${databaseName} does not exist`)
   }  
 
   const path = databasePath + databaseName + '/'

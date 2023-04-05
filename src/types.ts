@@ -61,7 +61,7 @@ export type user = {
 
 export type objectDeleted = {
   deletedCount: number,
-  deleted: JSONObject
+  deleted: JSONObject | Array<JSONObject>
 }
 
 export type valueAdded = {
