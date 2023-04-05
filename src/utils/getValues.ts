@@ -1,11 +1,12 @@
 import config from '../config.json'
+import { JSONObject } from '../types'
 import { readDatabasesWithoutConfig } from './readDBs'
 import readTables from './readTables'
 import fs from 'fs'
 
 const { databasePath } = config
 
-const getValues = (dbName: string, tableName: string): [] => {
+const getValues = (dbName: string, tableName: string): Array<JSONObject> => {
   const path = databasePath + dbName + '/'
 
   const dbs = readDatabasesWithoutConfig()
