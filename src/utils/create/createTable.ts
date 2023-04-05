@@ -1,15 +1,15 @@
-import { dbTypeValue, table } from "../../types"
+import { dbTypeValue, table, valueAdded } from "../../types"
 import config from "../../config.json"
 import fs from "fs"
 import readTables from "../read/readTables"
 
 const { databasePath } = config
 
-const createTable = (dbName: string, info: table) => {
+const createTable = (dbName: string, info: table): valueAdded => {
 
   const tables = readTables(dbName)
 
-  if (tables.includes(info.name)) return
+  if (tables.includes(info.name)) return { addedCount: 0, message: `Table ${info.name} already exists in database ${dbName}` }
   if (!isValidTable(info)) {
     throw new Error('The provided table is not valid')
   }
@@ -32,7 +32,7 @@ const createTable = (dbName: string, info: table) => {
   fs.mkdirSync(path + info.name)
   fs.writeFileSync(path + info.name + '/data.json', JSON.stringify(INITIAL_STATE))
   
-  return `Table ${info.name} created`
+  return { addedCount: 1, value: info }
 }
 
 const isString = (name: string): boolean => {

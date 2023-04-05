@@ -1,6 +1,7 @@
 import { permission, value } from "../types";
 import { user } from "../types";
 import createNewDB from "../utils/create/createNewDB";
+import deleteDatabase from "../utils/delete/deleteDatabase";
 import Table from "./table";
 
 class Database {
@@ -23,6 +24,10 @@ class Database {
 
   addTable(name: string, values: Array<value>) {
     return new Table(this.name, name, values)
+  }
+
+  delete() {
+    return deleteDatabase(this.name)
   }
 }
 

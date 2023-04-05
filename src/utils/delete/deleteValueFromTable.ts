@@ -1,4 +1,4 @@
-import { JSONObject, dbType, table } from "../../types"
+import { JSONObject, dbType, objectDeleted, table } from "../../types"
 import config from "../../config.json"
 import dbExist from "../read/dbExists"
 import tableExists from "../read/tableExists"
@@ -7,7 +7,7 @@ import valueExists from "../read/valueExists"
 
 const { databasePath } = config
 
-const deleteValueFromPrimaryKey = (dbName: string, tableName: string, value: {key: string, valueToRemove: dbType}): {deletedCount: number, deleted: JSONObject} => {
+const deleteValueFromPrimaryKey = (dbName: string, tableName: string, value: {key: string, valueToRemove: dbType}): objectDeleted => {
   if (!dbExist(dbName)) {
     throw new Error(`The database ${dbName} does not exists`)
   }

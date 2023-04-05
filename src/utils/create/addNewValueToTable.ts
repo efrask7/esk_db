@@ -1,13 +1,13 @@
 import fs from 'fs'
 import config from '../../config.json'
-import { JSONObject } from '../../types'
+import { JSONObject, valueAdded } from '../../types'
 
 const { databasePath } = config 
 
-const addNewValueToTable = (databaseName: string, tableName: string, info: JSONObject, primary?: string) => {
+const addNewValueToTable = (databaseName: string, tableName: string, info: JSONObject, primary?: string): valueAdded => {
   const dbs = fs.readdirSync(databasePath)
   if (!dbs.includes(databaseName)) {
-    throw new Error('The database: ' + databaseName + ' does not exist')
+    throw new Error('The database: ' + databaseName + ' does not exists')
   }  
 
   const path = databasePath + databaseName + '/'
@@ -20,7 +20,7 @@ const addNewValueToTable = (databaseName: string, tableName: string, info: JSONO
 
   if (primary) {
     if (values.find(v => v[primary] === info[primary])) {
-      throw new Error('Primary key repeated')
+      return { addedCount: 0, message: 'Key repeated', value: info }
     }
   }
 
@@ -33,7 +33,7 @@ const addNewValueToTable = (databaseName: string, tableName: string, info: JSONO
 
   fs.writeFileSync(path + tableName + '/data.json', JSON.stringify(newValues))
 
-  return 'Value saved'
+  return { addedCount: 1, value: info }
 
 }
 //addNewValueToTable('School', 'students', {"name": "Juansito", "card": 55599683})

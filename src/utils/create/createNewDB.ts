@@ -1,16 +1,16 @@
-import { database, permission, user } from "../../types";
+import { database, permission, user, valueAdded } from "../../types";
 import fs from 'fs'
 import config from "../../config.json"
 import { readDatabasesWithoutConfig } from "../read/readDBs";
 
 const { databasePath } = config
 
-const createNewDB = (databaseInfo: database) => {
+const createNewDB = (databaseInfo: database): valueAdded => {
   const { name, privileges } = databaseInfo
   const route = `${databasePath}/${name}/`
 
   const dbs = readDatabasesWithoutConfig()
-  if (dbs.includes(name)) return
+  if (dbs.includes(name)) return { addedCount: 0 , message: `Database ${databaseInfo.name} already exists` }
 
   if (!isString(name)) {
     throw new Error('The provided name is not valid')
@@ -25,7 +25,7 @@ const createNewDB = (databaseInfo: database) => {
   fs.mkdirSync(route, {recursive: true})
   fs.writeFileSync(route + '/config.json', JSON.stringify(databaseInfo))
 
-  return `DB: ${name} created`
+  return { addedCount: 1, value: { databaseName: name, users: privileges } }
 }
 
 const isString = (name: string): boolean => {

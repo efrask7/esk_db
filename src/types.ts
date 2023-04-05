@@ -58,3 +58,15 @@ export type user = {
   password?: string,
   permissions: permission
 }
+
+export type objectDeleted = {
+  deletedCount: number,
+  deleted: JSONObject
+}
+
+export type valueAdded = {
+  addedCount: number,
+  message?: string,
+  value?: JSONObject,
+  values?: Array<JSONObject>
+}

@@ -48,7 +48,13 @@ const teachers = SchoolDB.addTable('teachers', [
 
 console.log(teachers.save())
 
-console.log(teachers.deleteByKey({key: 'card', valueToRemove: 55599300}))
+console.log(teachers.addValue({
+  fullname: 'Juan',
+  card: 22933456,
+  hasClassroom: true
+}))
+
+//console.log(teachers.deleteByKey({key: 'card', valueToRemove: 55599300}))
 
 // console.log(teachers.findOne({
 //   search: 'card',
@@ -61,3 +67,5 @@ console.log(teachers.deleteByKey({key: 'card', valueToRemove: 55599300}))
 // }))
 
 // console.log(teachers.find())
+
+//console.log(SchoolDB.delete())
