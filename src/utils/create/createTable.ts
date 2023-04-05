@@ -1,17 +1,21 @@
-import { dbTypeValue, table, valueAdded } from "../../types"
+import { dbTypeValue, table } from "../../types"
 import config from "../../config.json"
 import fs from "fs"
 import readTables from "../read/readTables"
+import { addedTable } from "./types"
 
 const { databasePath } = config
 
-const createTable = (dbName: string, info: table): valueAdded => {
+const createTable = (dbName: string, info: table): addedTable => {
 
   const tables = readTables(dbName)
 
-  if (tables.includes(info.name)) return { addedCount: 0, message: `Table ${info.name} already exists in database ${dbName}` }
-  if (!isValidTable(info)) {
-    throw new Error('The provided table is not valid')
+  if (tables.includes(info.name)) return { addedType: 'Table', addedCount: 0, message: `Table ${info.name} already exists in database ${dbName}`, value: info }
+  
+  const tableIsValid = isValidTable(info)
+
+  if (!tableIsValid.isValid) {
+    throw new Error(tableIsValid.message)
   }
 
   const path = databasePath + dbName + '/'
@@ -32,29 +36,29 @@ const createTable = (dbName: string, info: table): valueAdded => {
   fs.mkdirSync(path + info.name)
   fs.writeFileSync(path + info.name + '/data.json', JSON.stringify(INITIAL_STATE))
   
-  return { addedCount: 1, value: info }
+  return { addedType: 'Table', addedCount: 1, value: info }
 }
 
 const isString = (name: string): boolean => {
   return typeof name === 'string'
 }
 
-const isValidTable = (tableParam: table): boolean => {
+const isValidTable = (tableParam: table): { isValid: boolean, message?: string } => {
   if (!tableParam.name || !isString(tableParam.name)) {
-    return false
+    return { isValid: false, message: 'The table name is missing or is not valid' }
   }
   
   for (let i in tableParam.values) {
-    if (!tableParam.values[i].required ||typeof tableParam.values[i].required !== 'boolean') {
-      return false
+    if (!tableParam.values[i].required || typeof tableParam.values[i].required !== 'boolean') {
+      return { isValid: false, message: "The 'required' property is missing or is not a boolean"}
     }
 
     if (!Object.values(dbTypeValue).includes(tableParam.values[i].type as dbTypeValue)) {
-      return false
+      return { isValid: false, message: `The type ${tableParam.values[i].type} is not valid, the type must be: [${Object.values(dbTypeValue).join(' - ')}]`}
     }
   }
 
-  return true
+  return { isValid: true }
 }
 
 export default createTable

@@ -54,19 +54,7 @@ export enum permission {
   Read = 'read'
 }
 export type user = {
-  name: string,
-  password?: string,
+  name: string
+  password?: string
   permissions: permission
-}
-
-export type objectDeleted = {
-  deletedCount: number,
-  deleted: JSONObject | Array<JSONObject>
-}
-
-export type valueAdded = {
-  addedCount: number,
-  message?: string,
-  value?: JSONObject,
-  values?: Array<JSONObject>
 }

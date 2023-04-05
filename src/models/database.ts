@@ -26,7 +26,7 @@ class Database {
     return new Table(this.name, name, values)
   }
 
-  delete() {
+  deleteDatabase() {
     return deleteDatabase(this.name)
   }
 }

@@ -1,11 +1,12 @@
-import { objectDeleted, table } from "../../types"
+import { table } from "../../types"
 import dbExist from "../read/dbExists"
 import config from "../../config.json"
 import fs from 'fs'
+import { deletedDB } from "./types"
 
 const { databasePath } = config
 
-const deleteDatabase = (dbName: string): objectDeleted => {
+const deleteDatabase = (dbName: string): deletedDB => {
   if (!dbName) {
     throw new Error('You have to provide the database name')
   }
@@ -27,7 +28,7 @@ const deleteDatabase = (dbName: string): objectDeleted => {
 
   fs.rmSync(path, {recursive: true, force: true})
 
-  return { deletedCount: 1, deleted: dbInfo }
+  return { deletedType: 'Database', deletedCount: 1, deleted: dbInfo }
 }
 
 export default deleteDatabase

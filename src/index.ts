@@ -107,6 +107,11 @@ teachers.addValue({
   hasClassroom: true
 })
 
+console.log(teachers.findOne({
+  search: 'fullname',
+  value: false
+}))
+
 // console.log('-----------------')
 
 // console.log(teachers.find({
@@ -146,3 +151,21 @@ teachers.addValue({
 // console.log(teachers.find())
 
 //console.log(SchoolDB.delete())
+
+const Shop = new Database('Shop')
+
+console.log(Shop.save())
+
+// const products = Shop.addTable('products', [
+//   {
+//     name: 'name',
+//     required: true,
+//     type: 'string'
+//   }
+// ])
+
+// console.log(products.save())
+
+// console.log(products.deleteTable())
+
+console.log(Shop.deleteDatabase())

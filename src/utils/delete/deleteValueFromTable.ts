@@ -1,13 +1,14 @@
-import { JSONObject, dbType, objectDeleted, table, value } from "../../types"
+import { JSONObject, dbType, table, value } from "../../types"
 import config from "../../config.json"
 import dbExist from "../read/dbExists"
 import tableExists from "../read/tableExists"
 import fs from "fs"
 import valueExists from "../read/valueExists"
+import { deletedValue } from "./types"
 
 const { databasePath } = config
 
-const deleteValueFromPrimaryKey = (dbName: string, tableName: string, value: {key: string, valueToRemove: dbType}): objectDeleted => {
+const deleteValueFromPrimaryKey = (dbName: string, tableName: string, value: {key: string, valueToRemove: dbType}): deletedValue => {
   if (!dbExist(dbName)) {
     throw new Error(`The database ${dbName} does not exists`)
   }
@@ -37,10 +38,10 @@ const deleteValueFromPrimaryKey = (dbName: string, tableName: string, value: {ke
   let newData = data.filter(v => v[value.key] !== value.valueToRemove)
   fs.writeFileSync(path + tableName + '/data.json', JSON.stringify(newData))
 
-  return { deletedCount: 1, deleted: valueToDelete }
+  return { deletedType: 'Value', deletedCount: 1, deleted: valueToDelete }
 }
 
-const deleteValuesFromValue = (dbName: string, tableName: string, valueInfo: {valueName: string, value: dbType}, limit?: number): objectDeleted => {
+const deleteValuesFromValue = (dbName: string, tableName: string, valueInfo: {valueName: string, value: dbType}, limit?: number): deletedValue => {
   if (!dbName || !tableName || !valueInfo) {
     throw new Error('You have to pass 3 params')
   }
@@ -98,7 +99,7 @@ const deleteValuesFromValue = (dbName: string, tableName: string, valueInfo: {va
 
   fs.writeFileSync(path + tableName + '/data.json', JSON.stringify(newValues))
 
-  return { deletedCount: valuesToDelete.length, deleted: valuesToDelete }
+  return { deletedType: 'Value' ,deletedCount: valuesToDelete.length, deleted: valuesToDelete }
 }
 
 export { deleteValueFromPrimaryKey, deleteValuesFromValue }
