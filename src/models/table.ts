@@ -3,6 +3,8 @@ import addNewValueToTable from "../utils/create/addNewValueToTable";
 import createTable from "../utils/create/createTable";
 import deleteTable from "../utils/delete/deleteTable";
 import { deleteValueFromPrimaryKey, deleteValuesFromValue } from "../utils/delete/deleteValueFromTable";
+import modifyValue from "../utils/modify/modifyValue";
+import { valueToModify } from "../utils/modify/types";
 import getValueFromValue from "../utils/read/getValueFromValue";
 import getValues from "../utils/read/getValues";
 import getValuesFromValue from "../utils/read/getValuesFromValue";
@@ -59,6 +61,10 @@ class Table {
 
   find(search: {name: string, value: dbType}) {
     return getValuesFromValue(this.dbName, this.tableName, search)
+  }
+
+  editOne(value: valueToModify) {
+    return modifyValue(this.dbName, this.tableName, value)
   }
 
   deleteByKey(value: {key: string, valueToRemove: dbType}) {

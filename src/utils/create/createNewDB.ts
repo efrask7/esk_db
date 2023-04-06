@@ -1,7 +1,6 @@
 import { database } from "../../types";
 import fs from 'fs'
 import config from "../../config.json"
-import { readDatabasesWithoutConfig } from "../read/readDBs";
 import { addedDB } from "./types"
 import { isString, isValidUser } from "../functions/utils";
 import dbExist from "../read/dbExists";

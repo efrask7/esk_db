@@ -1,7 +1,6 @@
 import { dbTypeValue, table } from "../../types"
 import config from "../../config.json"
 import fs from "fs"
-import readTables from "../read/readTables"
 import { addedTable } from "./types"
 import tableExists from "../read/tableExists"
 

@@ -1,9 +1,10 @@
-import { JSONObject, valueToSearch } from "../../types"
+import { JSONObject, dbTypeValue, table, value, valueToSearch } from "../../types"
 import config from '../../config.json'
 import fs from 'fs'
 import dbExist from "./dbExists"
 import tableExist from "./tableExists"
-import { isString } from "../functions/utils"
+import { isString, isValidType } from "../functions/utils"
+import valueExists from "./valueExists"
 
 const { databasePath } = config
 
@@ -33,7 +34,19 @@ const getValueFromValue = (dbName: string, tableName: string, value: valueToSear
     throw new Error(`The database ${dbName} don't have a table called ${tableName}`)
   }
 
+  if (!valueExists(dbName, tableName, value.search)) {
+    throw new Error(`The table ${tableName} don't have a value called ${value.search}`)
+  }
+
   const path = databasePath + dbName + '/'
+
+  const tables: Array<table> = JSON.parse(fs.readFileSync(path + 'tables.json', {encoding: 'utf-8'}))
+  const table = tables.find(v => v.name === tableName) as table
+  const valueCfg = table.values.find(v => v.name === value.search) as value
+
+  if (!isValidType(value.value, valueCfg.type as dbTypeValue)) {
+    throw new Error(`The value ${value.search} is not valid, type must be: ${valueCfg.type}`)
+  }
 
   const values: Array<JSONObject> = JSON.parse(fs.readFileSync(path + tableName + '/data.json', {encoding: 'utf-8'}))
 
