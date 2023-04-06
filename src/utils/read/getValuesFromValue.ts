@@ -4,6 +4,7 @@ import tableExists from "./tableExists"
 import valueExists from "./valueExists"
 import config from "../../config.json"
 import fs from "fs"
+import { isString } from "../functions/utils"
 
 const { databasePath } = config
 
@@ -17,12 +18,24 @@ const getValuesFromValue = (dbName: string, tableName: string, value: valueParam
     throw new Error('You have to pass 3 params')
   }
 
+  if (!isString(dbName) || !isString(tableName)) {
+    throw new Error('The database or table name are not valid')
+  }
+
   if (!dbExist(dbName)) {
     throw new Error(`The database ${dbName} does not exists`)
   }
 
   if (!tableExists(dbName, tableName)) {
     throw new Error(`The database ${dbName} don't have a table called ${tableName}`)
+  }
+
+  if (!value.name || !isString(value.name)) {
+    throw new Error("The property 'name' of value is not valid")
+  } 
+
+  if (!value.value && typeof value.value !== 'boolean') {
+    throw new Error("The type of 'value' of value is not valid")
   }
 
   if (!valueExists(dbName, tableName, value.name)) {

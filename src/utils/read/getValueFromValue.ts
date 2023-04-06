@@ -3,11 +3,28 @@ import config from '../../config.json'
 import fs from 'fs'
 import dbExist from "./dbExists"
 import tableExist from "./tableExists"
+import { isString } from "../functions/utils"
 
 const { databasePath } = config
 
 const getValueFromValue = (dbName: string, tableName: string, value: valueToSearch): JSONObject => {
   
+  if (!dbName || !tableName || !value) {
+    throw new Error('You have to pass 3 params')
+  }
+
+  if (!isString(dbName) || !isString(tableName)) {
+    throw new Error("The param 'dbName' or 'tableName' is not valid")
+  }
+
+  if (!value || !value.search) {
+    throw new Error("The param 'value' is missing or the property 'search' is missing")
+  }
+
+  if (!value.value && typeof value.value !== 'boolean') {
+    throw new Error("The property 'value' of the param 'value' is missing")
+  }
+
   if (!dbExist(dbName)) {
     throw new Error(`The database ${dbName} does not exist`)
   }
