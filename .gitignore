@@ -3,3 +3,4 @@ build
 src/index.ts
 yarn-error.log
 yarn.lock
+src/test.ts
