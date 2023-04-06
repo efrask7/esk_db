@@ -4,19 +4,28 @@ import config from "../../config.json"
 import { readDatabasesWithoutConfig } from "../read/readDBs";
 import { addedDB } from "./types"
 import { isString, isValidUser } from "../functions/utils";
+import dbExist from "../read/dbExists";
 
 const { databasePath } = config
 
 const createNewDB = (databaseInfo: database): addedDB => {
+
+  if (!databaseInfo) {
+    throw new Error('You have to provide the database')
+  }
+
+  if (!databaseInfo.name || !isString(databaseInfo.name)) {
+    throw new Error('The database name is not valid or is missing')
+  }
+
+  if (!databaseInfo.privileges) {
+    throw new Error('You have to provide the users of the database')
+  }
+
   const { name, privileges } = databaseInfo
   const route = `${databasePath}/${name}/`
 
-  const dbs = readDatabasesWithoutConfig()
-  if (dbs.includes(name)) return { addedType: 'Database', addedCount: 0 , message: `Database ${databaseInfo.name} already exists`, value: {name: databaseInfo.name, privileges: databaseInfo.privileges} }
-
-  if (!isString(name)) {
-    throw new Error('The provided name is not valid')
-  }
+  if (dbExist(name)) return { addedType: 'Database', addedCount: 0 , message: `Database ${databaseInfo.name} already exists`, value: {name: databaseInfo.name, privileges: databaseInfo.privileges} }
 
   for (let i in privileges) {
     if (!isValidUser(privileges[i])) {

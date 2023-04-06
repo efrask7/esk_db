@@ -3,14 +3,17 @@ import config from "../../config.json"
 import fs from "fs"
 import readTables from "../read/readTables"
 import { addedTable } from "./types"
+import tableExists from "../read/tableExists"
 
 const { databasePath } = config
 
 const createTable = (dbName: string, info: table): addedTable => {
 
-  const tables = readTables(dbName)
+  if (!dbName || !info) {
+    throw new Error('The database name or table is missing')
+  }
 
-  if (tables.includes(info.name)) return { addedType: 'Table', addedCount: 0, message: `Table ${info.name} already exists in database ${dbName}`, value: info }
+  if (tableExists(dbName, info.name)) return { addedType: 'Table', addedCount: 0, message: `Table ${info.name} already exists in database ${dbName}`, value: info }
   
   const tableIsValid = isValidTable(info)
 
