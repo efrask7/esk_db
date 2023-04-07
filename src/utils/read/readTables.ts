@@ -1,6 +1,6 @@
-import config from '../../config.json'
+import config from '../../config.js'
 import fs from 'fs'
-import { isString } from '../functions/utils'
+import { isString } from '../functions/utils.js'
 
 const { databasePath } = config
 

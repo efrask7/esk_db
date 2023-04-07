@@ -1,6 +1,5 @@
 node_modules
-build
-src/index.ts
+dist
 yarn-error.log
 yarn.lock
 src/test.ts

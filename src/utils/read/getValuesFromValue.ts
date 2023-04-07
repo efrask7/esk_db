@@ -1,10 +1,10 @@
-import { JSONObject, dbType } from "../../types"
-import dbExist from "./dbExists"
-import tableExists from "./tableExists"
-import valueExists from "./valueExists"
-import config from "../../config.json"
+import { JSONObject, dbType } from "../../types.js"
+import dbExist from "./dbExists.js"
+import tableExists from "./tableExists.js"
+import valueExists from "./valueExists.js"
+import config from '../../config.js'
 import fs from "fs"
-import { isString } from "../functions/utils"
+import { isString } from "../functions/utils.js"
 
 const { databasePath } = config
 

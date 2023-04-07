@@ -1,8 +1,7 @@
-import { permission, value } from "../types";
-import { user } from "../types";
-import createNewDB from "../utils/create/createNewDB";
-import deleteDatabase from "../utils/delete/deleteDatabase";
-import Table from "./table";
+import { permission, value, user } from "../types.js";
+import createNewDB from "../utils/create/createNewDB.js";
+import deleteDatabase from "../utils/delete/deleteDatabase.js";
+import Table from "./table.js";
 
 class Database {
   name: string

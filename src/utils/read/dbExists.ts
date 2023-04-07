@@ -1,5 +1,5 @@
-import { isString } from "../functions/utils"
-import { readDatabasesWithoutConfig } from "./readDBs"
+import { isString } from "../functions/utils.js"
+import { readDatabasesWithoutConfig } from "./readDBs.js"
 
 const dbExist = (dbName: string): boolean => {
 

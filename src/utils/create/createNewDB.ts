@@ -1,9 +1,9 @@
-import { database } from "../../types";
+import { database } from "../../types.js";
 import fs from 'fs'
-import config from "../../config.json"
-import { addedDB } from "./types"
-import { isString, isValidUser } from "../functions/utils";
-import dbExist from "../read/dbExists";
+import config from '../../config.js'
+import { addedDB } from "./types.js"
+import { isString, isValidUser } from "../functions/utils.js";
+import dbExist from "../read/dbExists.js";
 
 const { databasePath } = config
 
@@ -23,6 +23,10 @@ const createNewDB = (databaseInfo: database): addedDB => {
 
   const { name, privileges } = databaseInfo
   const route = `${databasePath}/${name}/`
+
+  if (!fs.existsSync(databasePath)) {
+    fs.mkdirSync(databasePath, {recursive: true})
+  }
 
   if (dbExist(name)) return { addedType: 'Database', addedCount: 0 , message: `Database ${databaseInfo.name} already exists`, value: {name: databaseInfo.name, privileges: databaseInfo.privileges} }
 

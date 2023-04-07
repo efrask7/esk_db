@@ -1,8 +1,8 @@
-import { dbTypeValue, table } from "../../types"
-import config from "../../config.json"
+import { dbTypeValue, table } from "../../types.js"
+import config from '../../config.js'
 import fs from "fs"
-import { addedTable } from "./types"
-import tableExists from "../read/tableExists"
+import { addedTable } from "./types.js"
+import tableExists from "../read/tableExists.js"
 
 const { databasePath } = config
 

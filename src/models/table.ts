@@ -1,13 +1,13 @@
-import { JSONObject, dbType, value, valueToSearch } from "../types";
-import addNewValueToTable from "../utils/create/addNewValueToTable";
-import createTable from "../utils/create/createTable";
-import deleteTable from "../utils/delete/deleteTable";
-import { deleteValueFromPrimaryKey, deleteValuesFromValue } from "../utils/delete/deleteValueFromTable";
-import modifyValue from "../utils/modify/modifyValue";
-import { valueToModify } from "../utils/modify/types";
-import getValueFromValue from "../utils/read/getValueFromValue";
-import getValues from "../utils/read/getValues";
-import getValuesFromValue from "../utils/read/getValuesFromValue";
+import { JSONObject, dbType, value, valueToSearch } from "../types.js";
+import addNewValueToTable from "../utils/create/addNewValueToTable.js";
+import createTable from "../utils/create/createTable.js";
+import deleteTable from "../utils/delete/deleteTable.js";
+import { deleteValueFromPrimaryKey, deleteValuesFromValue } from "../utils/delete/deleteValueFromTable.js";
+import modifyValue from "../utils/modify/modifyValue.js";
+import { valueToModify } from "../utils/modify/types.js";
+import getValueFromValue from "../utils/read/getValueFromValue.js";
+import getValues from "../utils/read/getValues.js";
+import getValuesFromValue from "../utils/read/getValuesFromValue.js";
 
 class Table {
   tableName: string

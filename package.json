@@ -1,20 +1,19 @@
 {
-  "name": "skdb",
-  "description": "A pkg to do databases that saves in local",
+  "name": "esk_db",
+  "description": "A pkg to do databases that saves in local (don't use for real proyects!)",
   "author": {
     "name": "efra_sk"
   },
   "repository": {
     "url": "https://www.github.com/efrask7/skdb.git"
   },
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "1.0.1",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
   "license": "MIT",
   "scripts": {
-    "tsc": "tsc",
-    "start-ts": "ts-node src/index.ts",
-    "start": "build/index.js",
-    "test": "ts-node src/utils/getValuesFromValue.ts"
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",

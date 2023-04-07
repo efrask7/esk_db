@@ -1,7 +1,7 @@
-import { database } from "../../types";
+import { database } from "../../types.js";
 import fs from "fs"
-import config from "../../config.json"
-import { isString } from "../functions/utils";
+import config from '../../config.js'
+import { isString } from "../functions/utils.js";
 
 const { databasePath } = config
 
@@ -40,9 +40,7 @@ const readDatabase = (name: string): database => {
 
 const readDatabasesWithoutConfig = (): string[] => {
   const dbs = fs.readdirSync(databasePath)
-  const [ _ignore, ...listOfDbs ] = dbs
-
-  return listOfDbs
+  return dbs
 }
 
 export { readDatabases, readDatabase, readDatabasesWithoutConfig }

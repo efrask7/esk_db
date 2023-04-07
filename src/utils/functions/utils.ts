@@ -1,4 +1,4 @@
-import { user, permission, dbTypeValue } from "../../types"
+import { user, permission, dbTypeValue } from "../../types.js"
 
 export const isString = (name: string): boolean => {
   return typeof name === 'string'

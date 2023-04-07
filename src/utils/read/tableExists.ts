@@ -1,6 +1,6 @@
-import { isString } from "../functions/utils"
-import dbExist from "./dbExists"
-import readTables from "./readTables"
+import { isString } from "../functions/utils.js"
+import dbExist from "./dbExists.js"
+import readTables from "./readTables.js"
 
 const tableExists = (dbName: string, tableName: string): boolean => {
   if (!dbName || !tableName) {

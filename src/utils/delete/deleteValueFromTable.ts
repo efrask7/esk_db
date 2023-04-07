@@ -1,10 +1,10 @@
-import { JSONObject, dbType, table, value } from "../../types"
-import config from "../../config.json"
-import dbExist from "../read/dbExists"
-import tableExists from "../read/tableExists"
+import { JSONObject, dbType, table, value } from "../../types.js"
+import config from '../../config.js'
+import dbExist from "../read/dbExists.js"
+import tableExists from "../read/tableExists.js"
 import fs from "fs"
-import valueExists from "../read/valueExists"
-import { deletedValue } from "./types"
+import valueExists from "../read/valueExists.js"
+import { deletedValue } from "./types.js"
 
 const { databasePath } = config
 

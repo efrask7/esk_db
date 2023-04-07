@@ -1,9 +1,9 @@
-import dbExist from "./dbExists"
-import tableExists from "./tableExists"
+import dbExist from "./dbExists.js"
+import tableExists from "./tableExists.js"
 import fs from "fs"
-import config from "../../config.json"
-import { table } from "../../types"
-import { isString } from "../functions/utils"
+import config from '../../config.js'
+import { table } from "../../types.js"
+import { isString } from "../functions/utils.js"
 
 const { databasePath } = config
 

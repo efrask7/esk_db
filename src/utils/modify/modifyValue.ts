@@ -1,11 +1,11 @@
 import fs from 'fs'
-import config from '../../config.json'
-import { valueModified, valueToModify } from './types'
-import { JSONObject, dbTypeValue, table, value } from '../../types'
-import { isString, isValidType } from '../functions/utils'
-import dbExist from '../read/dbExists'
-import tableExists from '../read/tableExists'
-import valueExists from '../read/valueExists'
+import config from '../../config.js'
+import { valueModified, valueToModify } from './types.js'
+import { JSONObject, dbTypeValue, table, value } from '../../types.js'
+import { isString, isValidType } from '../functions/utils.js'
+import dbExist from '../read/dbExists.js'
+import tableExists from '../read/tableExists.js'
+import valueExists from '../read/valueExists.js'
 
 const { databasePath } = config
 
