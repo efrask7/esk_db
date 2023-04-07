@@ -99,7 +99,7 @@ const deleteValuesFromValue = (dbName: string, tableName: string, valueInfo: {va
 
   fs.writeFileSync(path + tableName + '/data.json', JSON.stringify(newValues))
 
-  return { deletedType: 'Value' ,deletedCount: valuesToDelete.length, deleted: valuesToDelete }
+  return { deletedType: 'Value', deletedCount: valuesToDelete.length, deleted: valuesToDelete }
 }
 
 export { deleteValueFromPrimaryKey, deleteValuesFromValue }
