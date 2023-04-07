@@ -31,9 +31,13 @@ class Table {
 
     let primary
 
+    if (!value) {
+      throw new Error(`You don't provide the value. If is a value that is not required, pass a empty json`)
+    }
+
     for (let i in this.values) {
 
-      if (!value[this.values[i].name] && this.values[i].type !== 'boolean' && !this.values[i].defaultValue) {
+      if (!Object.keys(value).includes(this.values[i].name) && this.values[i].required && this.values[i].type !== 'boolean' && !this.values[i].defaultValue) {
         throw new Error(`You dont provide: ${this.values[i].name}`)
       }
 

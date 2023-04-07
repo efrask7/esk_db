@@ -56,6 +56,10 @@ const isValidTable = (tableParam: table): { isValid: boolean, message?: string }
       return { isValid: false, message: "You can't create a value with the name 'id' " }
     }
 
+    if (!Object.keys(tableParam.values[i]).includes('name')) {
+      return { isValid: false, message: "The 'name' property is missing" }
+    }
+
     if (!Object.keys(tableParam.values[i]).includes('required')) {
       return { isValid: false, message: "The 'required' property is missing" }
     }
