@@ -1,6 +1,6 @@
 import fs from 'fs'
 import config from '../../config.js'
-import { JSONObject, dbTypeValue, table, value } from '../../types.js'
+import { JSONObject, dbType, dbTypeValue, table, value } from '../../types.js'
 import { addedValue } from './types.js'
 import dbExist from '../read/dbExists.js'
 import { isString, isValidType } from '../functions/utils.js'
@@ -41,6 +41,24 @@ const addNewValueToTable = (databaseName: string, tableName: string, info: JSONO
 
   const values: Array<JSONObject> = JSON.parse(fs.readFileSync(path + tableName + '/data.json', {encoding: 'utf8'}))
 
+  for (let i in tableCfg.values) {
+    const value = tableCfg.values[i]
+    if (value.required && !info[value.name] && !value.defaultValue) {
+      throw new Error(`You don't provide ${value.name}`)
+    }
+
+    if (value.type === 'boolean') {
+      if (!Object.keys(info).includes(value.name)) {
+        throw new Error(`You dont provide: ${value.name}`)
+      }
+    }
+
+
+    if (!info[value.name] && !value.required && Object.keys(value).includes('defaultValue')) {
+      info[value.name] = value.defaultValue as dbType
+    }
+  }
+
   for (let i in info) {
     let valueCfg: value | undefined = tableCfg.values.find(v => v.name === i)
     if (!valueCfg) {
@@ -48,7 +66,7 @@ const addNewValueToTable = (databaseName: string, tableName: string, info: JSONO
     }
 
     if (!isValidType(info[i], valueCfg.type as dbTypeValue)) {
-      throw new Error(`The value of ${i} is not valid`)
+      throw new Error(`The value of ${i} is not valid, type must be: ${valueCfg.type}`)
     }
   }
 

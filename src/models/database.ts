@@ -22,6 +22,11 @@ class Database {
   }
 
   addTable(name: string, values: Array<value>) {
+    for (let i in values) {
+      if (values[i].name === 'id') {
+        throw new Error("You can't create a value with the name 'id'")
+      }
+    }
     return new Table(this.name, name, values)
   }
 

@@ -51,12 +51,21 @@ const isValidTable = (tableParam: table): { isValid: boolean, message?: string }
   }
   
   for (let i in tableParam.values) {
-    if (!tableParam.values[i].required || typeof tableParam.values[i].required !== 'boolean') {
-      return { isValid: false, message: "The 'required' property is missing or is not a boolean"}
+
+    if (tableParam.values[i].name === 'id') {
+      return { isValid: false, message: "You can't create a value with the name 'id' " }
+    }
+
+    if (!Object.keys(tableParam.values[i]).includes('required')) {
+      return { isValid: false, message: "The 'required' property is missing" }
+    }
+
+    if (typeof tableParam.values[i].required !== 'boolean') {
+      return { isValid: false, message: "The 'required' property is not a boolean" }
     }
 
     if (!Object.values(dbTypeValue).includes(tableParam.values[i].type as dbTypeValue)) {
-      return { isValid: false, message: `The type ${tableParam.values[i].type} is not valid, the type must be: [${Object.values(dbTypeValue).join(' - ')}]`}
+      return { isValid: false, message: `The type ${tableParam.values[i].type} is not valid, the type must be: [${Object.values(dbTypeValue).join(' - ')}]` }
     }
   }
 

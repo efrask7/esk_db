@@ -33,7 +33,7 @@ class Table {
 
     for (let i in this.values) {
 
-      if (!value[this.values[i].name] && this.values[i].type !== 'boolean') {
+      if (!value[this.values[i].name] && this.values[i].type !== 'boolean' && !this.values[i].defaultValue) {
         throw new Error(`You dont provide: ${this.values[i].name}`)
       }
 

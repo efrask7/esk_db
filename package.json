@@ -7,13 +7,14 @@
   "repository": {
     "url": "https://www.github.com/efrask7/skdb.git"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "start": "ts-node src/test.ts"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
