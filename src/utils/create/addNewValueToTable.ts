@@ -53,10 +53,14 @@ const addNewValueToTable = (databaseName: string, tableName: string, info: JSONO
       }
     }
 
-
     if (!info[value.name] && !value.required && Object.keys(value).includes('defaultValue')) {
       info[value.name] = value.defaultValue as dbType
     }
+
+    if (value.limit && info[value.name].toString().length > value.limit) {
+      throw new Error(`The value ${value.name} is larger than the limit`)
+    }
+
   }
 
   for (let i in info) {

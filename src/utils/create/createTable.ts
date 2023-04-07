@@ -67,6 +67,16 @@ const isValidTable = (tableParam: table): { isValid: boolean, message?: string }
     if (!Object.values(dbTypeValue).includes(tableParam.values[i].type as dbTypeValue)) {
       return { isValid: false, message: `The type ${tableParam.values[i].type} is not valid, the type must be: [${Object.values(dbTypeValue).join(' - ')}]` }
     }
+
+    if (tableParam.values[i].limit) {
+      if (typeof tableParam.values[i].limit !== 'number') {
+        return { isValid: false, message: `The limit type of ${tableParam.values[i].name} is not a number` }
+      }
+
+      if (tableParam.values[i].type === 'object' || tableParam.values[i].type === 'boolean') {
+        return { isValid: false, message: `You provide a limit for ${tableParam.values[i].name} and the type not is a string or boolean` }
+      }
+    }
   }
 
   return { isValid: true }
