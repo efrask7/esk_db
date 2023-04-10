@@ -1,20 +1,19 @@
 {
   "name": "esk_db",
-  "description": "A pkg to do databases that saves in local (don't use for real proyects!)",
+  "description": "A database manager that saves databases and tables in json files",
   "author": {
-    "name": "efra_sk"
+    "name": "efrask7"
   },
   "repository": {
-    "url": "https://www.github.com/efrask7/skdb.git"
+    "url": "https://www.github.com/efrask7/esk_db.git"
   },
-  "version": "1.1.1",
+  "version": "1.1.5",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
-    "start": "ts-node src/test.ts"
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",

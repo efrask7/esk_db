@@ -5,19 +5,17 @@
 ```
 # npm
 npm install esk_db
-# yarn
-yarn install esk_db
 ```
 
 ## Usage
 
 ```
-import SkDB from 'esk_db'
+import Esk_DB from 'esk_db'
 ```
 
 ## Creating a database
 ```
-const DB = new SkDB.Database('name')
+const DB = new Esk_DB.Database('name')
 const save = DB.save()
 
 # returns a json object

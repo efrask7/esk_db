@@ -1,9 +1,5 @@
 import Database from "./models/database.js";
-import Table from "./models/table.js";
 
-const SkDB = {
-  Database,
-  Table
-}
+const Esk_DB = Database
 
-export default SkDB
+export default Esk_DB
