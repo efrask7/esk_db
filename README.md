@@ -14,7 +14,7 @@ Esk_DB es una libreria que te permite crear bases de datos y tablas de manera se
 Este proyecto se hizo en una semana con fines educativos con el objetivo de aprender a hacer uso de la libreria *fs* de nodejs, por lo que no es recomendable usarlo en un proyecto real.
 
 ## Uso
-Puedes encontrar ejemplos en la carpeta [examples]()
+Puedes encontrar ejemplos en la carpeta [examples](https://github.com/efrask7/esk_db/tree/main/examples)
 
 ```javascript
 import Esk_DB from 'esk_db'
