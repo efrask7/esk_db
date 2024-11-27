@@ -1,157 +1,169 @@
-# SKDB
+# ESK_DB
 
-## Installation
+## Instalación
 
-```
+```bash
 # npm
 npm install esk_db
 ```
 
-## Usage
+## Descripción
+Esk_DB es una libreria que te permite crear bases de datos y tablas de manera sencilla, ademas de poder añadir, buscar, editar y eliminar valores de las tablas, haciendo uso de la liberia *fs* de nodejs, guardando los datos en archivos json.
 
-```
+## Importante
+Este proyecto se hizo en una semana con fines educativos con el objetivo de aprender a hacer uso de la libreria *fs* de nodejs, por lo que no es recomendable usarlo en un proyecto real.
+
+## Uso
+Puedes encontrar ejemplos en la carpeta [examples]()
+
+```javascript
 import Esk_DB from 'esk_db'
 ```
 
-## Creating a database
-```
-const DB = new Esk_DB.Database('name')
+## Crear una base de datos
+
+```javascript
+const DB = new Esk_DB.Database('nombre')
 const save = DB.save()
 
-# returns a json object
+// devuelve un objeto json
 console.log(save)
-
 ```
 
-## Creating a table
-```
-values: 
+## Crear una tabla
 
-  (name: string, [array of values])
-  
-  value: {
-    name: string
-    required: boolean,
-    type: 'string' | 'boolean' | 'number' | 'object',
-    primaryKey: (optional) boolean
-  }
-  DB.addTable(name: string, [])
+```javascript
+// type value = {
+//   name: string
+//   required: boolean
+//   primaryKey?: boolean
+//   type: string (string | boolean | number | object)
+//   limit?: number
+//   defaultValue?: any
+// }
 
-```
+// Siendo value un arreglo con los atributos de la tabla
+
+DB.addTable(nombre: string, []: Array<value>)
 ```
 
-const Table = DB.addTable('name', [
-  {
-    name: 'value1',
-    required: false,
-    type: 'string'
-  }, 
-  {
-    name: 'value_required',
+```javascript
+const Table = DB.addTable('nombre', [
+  { /* Primer atributo */
+    name: 'uuid',
     required: true,
     type: 'number',
     primaryKey: true
-  }
+  },
+  { /* Segundo atributo */
+    name: 'name',
+    required: true,
+    type: 'string'
+  } 
 ])
 
+// devuelve un objeto json
 const tableSave = Table.save()
 
-# returns a json object
 console.log(tableSave)
-
 ```
 
-## Add a value
-```
-const Person = Table.addValue({
-  value1: "Person",
-  value_required: 223
+## Añadir un valor
+
+```javascript
+
+//Teniendo en cuenta el ejemplo de arriba
+const Persona = Table.addValue({
+  uuid: "Persona",
+  name: 'Juan'
 })
 
-# returns a json object
-console.log(Person)
-
+// devuelve un objeto json
+console.log(Persona)
 ```
 
-## Search a value
-```
-# returns all the values of the table
+## Buscar un valor
+
+```javascript
+// devuelve todos los valores de la tabla
 Table.findAll()
 
-# returns the value as a json (if the value exists)
-
- search: name of the property
- value: value of the property
+// devuelve el valor como un json (si el valor existe)
+// search: nombre del atributo
+// value: valor del atributo
 
 Table.findOne({
-  search: 'value_required',
+  search: 'valor_requerido',
   value: 223
 })
 
-# returns a array of the values with the same value
-
-  name: name of the property
-  value: value of the property
+// devuelve un array de los valores con el mismo valor
+// name: nombre del atributo
+// value: valor del atributo
 
 Table.find({
-  name: 'value1',
-  value: "Person"
+  name: 'valor1',
+  value: "Persona"
 })
-
 ```
 
-## Edit a value
-``` 
- search: (search the value in the table to edit) { 
-  valueName: name of the property,
-  value: value of the property
- }
- 
- newValue: (new value for the value) {
-  valueName,
-  value
- }
- 
- const edit = Table.editOne({
+## Editar un valor
+
+```javascript
+// search: (buscar el valor en la tabla para editar) { 
+//   valueName: nombre del atributo,
+//   value: valor del atributo
+// }
+// newValue: (nuevo valor para el atributo) {
+//   valueName: atributo a editar,
+//   value: nuevo valor
+// }
+
+const edit = Table.editOne({
   search: {
-    valueName: 'value_required',
+    valueName: 'atributo',
     value: 223
   },
   newValue: {
-    valueName: 'value1',
-    value: "Other_Person"
+    valueName: 'valor1',
+    value: "nuevo_valor"
   }
- })
+})
 
-# returns a json object
+// devuelve un objeto json
 console.log(edit)
-
 ```
 
-## Delete values
-```
- # delete by key (only delete 1)
- 
- const delete = Table.deleteByKey({
-  key: 'value_required',
-  value: 223
- })
- 
- # returns a json object
- console.log(delete)
- 
- # delete by value
- 
- you have to pass 2 params:
-  {}: the value to search
-  number: the limit to delete
-  
-  in this case the function will delete only 2 values or less with that value
- 
- const delete = Table.deleteByValue({
-  valueName: 'value1',
-  value: 'Person'
- }, 2)
+## Eliminar valores
 
+```javascript
+// eliminar por clave primaria
+const eliminar = Table.deleteByKey({
+  key: 'atributo',
+  valueToRemove: 'valor'
+})
+
+// devuelve un objeto json
+console.log(eliminar)
+
+// eliminar por valor
+// debes pasar un objeto con dos atributos:
+// valueName: el atributo a buscar
+// value: el valor a buscar
+// la función elimina todos los datos que tengan el valor proporcionado
+
+const eliminar = Table.deleteByValue({
+  valueName: 'valor1',
+  value: 'Persona'
+})
+
+// tambien es posible limitar la cantidad de datos a eliminar pasandole un atributo extra
+// limit: cantidad de datos a eliminar
+// parametros: (objeto a buscar, limite a eliminar)
+
+const eliminar = Table.deleteByValue({
+  valueName: 'valor1',
+  value: 'Persona'
+}, 3)
 ```
 
